@@ -1,10 +1,9 @@
 services:
-  - type: web
+  - type: docker
     name: wordpress
     env: docker
-    image: wordpress:latest
+    dockerfilePath: Dockerfile
     plan: starter
-    port: 80
     envVars:
       - key: WORDPRESS_DB_HOST
         fromDatabase:
@@ -22,13 +21,8 @@ services:
         fromDatabase:
           name: wordpress-db
           property: password
-    disk:
-      name: wp-content
-      mountPath: /var/www/html/wp-content
-      sizeGB: 1
 
 databases:
   - name: wordpress-db
     plan: starter
-    databaseName: wordpress
-    user: wordpress
+    ipAllowList: []
